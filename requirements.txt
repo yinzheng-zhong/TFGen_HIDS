@@ -1,0 +1,7 @@
+pandas
+pyarrow>=1.0.0
+numpy<=1.21.0
+tfgen
+tqdm
+sklearn
+pyod
