@@ -142,7 +142,7 @@ class ConvAutoencoder(torch.nn.Module):
         dataset = PyODDataset(x=x)
 
         dataloader = torch.utils.data.DataLoader(dataset,
-                                                 batch_size=1,
+                                                 batch_size=32,
                                                  shuffle=False)
 
         # construct the vector for holding the reconstruction error
