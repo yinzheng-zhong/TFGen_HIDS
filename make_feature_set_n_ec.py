@@ -40,11 +40,12 @@ class MakeDatasetMLNEC(MakeDatasetML):
 
 
 if __name__ == '__main__':
-    mdl = MakeDatasetMLNEC('case_id', ['status', 'api'])
+    mdl = MakeDatasetMLNEC('case_id', ['status', 'api'], )
     mdl.gen_dataset(
         'event_log_cuckoo_hippo.csv.zip',
         'event_log_cuckoo_virus.csv.zip',
-        '_hippo_tn',
+        '_hippo_t50',
+        top_n_ec=50,
         event_limit_training=200000,
         event_limit_testing=1000000
     )

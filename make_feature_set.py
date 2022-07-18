@@ -91,6 +91,7 @@ class MakeDatasetML:
                     normal_set_file,
                     abnormal_set_file,
                     out_put_suffix,
+                    top_n_ec=50,
                     event_limit_training=200000,
                     event_limit_testing=400000):
         """
@@ -98,6 +99,7 @@ class MakeDatasetML:
         :param normal_set_file: path to normal event log file
         :param abnormal_set_file: path to abnormal event log file
         :param out_put_suffix: the suffix to add to the output file name
+        :param top_n_ec: the number of top occurring EC to use for the feature set, set 0 to use all
         :param event_limit_training: the number of events to use for training
         :param event_limit_testing: the number of events to use for testing
         :return:
@@ -124,7 +126,11 @@ class MakeDatasetML:
             event_limit_normal_testing = len(norm_event_log) - event_limit_training
             event_limit_anomalous_testing = len(anom_data_event_log)
 
-        oec = get_observable_ec_top_n(norm_event_log[self.attributes_cols], n=50)
+        if top_n_ec is not None:
+            oec = get_observable_ec_top_n(norm_event_log[self.attributes_cols], n=top_n_ec)
+        else:
+            oec = get_observable_ec(norm_event_log[self.attributes_cols])
+
         print('Number of events in normal data:', norm_event_log.shape)
         print('Number of observed event classes:', len(oec))
 
@@ -173,6 +179,7 @@ if __name__ == '__main__':
         'event_log_cuckoo_hippo.csv.zip',
         'event_log_cuckoo_virus.csv.zip',
         '_hippo_tn',
+        top_n_ec=0,
         event_limit_training=200000,
         event_limit_testing=400000
     )
